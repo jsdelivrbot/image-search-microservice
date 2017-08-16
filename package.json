@@ -1,0 +1,22 @@
+{
+	"name": "image-search-microservice",
+  "version": "0.1.0",
+  "description": "An image search microservice",
+	"dependencies": {
+		"express": "~4.14.0",
+		"mongodb": "~2.0" 
+	},
+	"main": "server.js",
+	"scripts": {
+		"start": "node server.js"
+	},
+	"engines": {
+		"node": "6.11.2"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/domfarnham/image-search-microservice"
+	},
+  "license": "ISC",
+  "author": "dominic farnham"
+}
