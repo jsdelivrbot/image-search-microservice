@@ -5,12 +5,12 @@ const express = require('express');
 const app = express();
 const MongoClient = require('mongodb').MongoClient;
 const test = require('assert');
-const getImages = require("./lib/getImages.js");
+const getImages = require('./lib/getImages.js');
 
 // Connect to database first
 MongoClient.connect(process.env.DATABASE_URL, function(err, db) {
   test.equal(null, err);
-  console.log("Successfully connected to MongoDB.");
+  console.log('Successfully connected to MongoDB.');
   
   // Routes
   app.use('/public', express.static(process.cwd() + '/public'));
@@ -21,7 +21,7 @@ MongoClient.connect(process.env.DATABASE_URL, function(err, db) {
 
   app.get('/api/search/:query', (function(req, res) {
     // Replace whitespace in search query with %20
-    const userQuery = req.params.query.replace(" ", "%20");
+    const userQuery = req.params.query.replace(' ', '%20');
     // Store offset GET variable for pagination purposes
     const offset = req.query.offset;
         
@@ -32,14 +32,13 @@ MongoClient.connect(process.env.DATABASE_URL, function(err, db) {
       let results = [];
       
       // Add document to imageSearches collection
-      db.collection("imageSearches").insertOne({"term": req.params.query , "when": new Date()}, function(err, result) {
+      db.collection('imageSearches').insertOne({'term': req.params.query , 'when': new Date()}, function(err, result) {
         test.equal(null, err);
         test.equal(1, result.insertedCount);
-        console.log(result.insertedCount + " new doc has been inserted into the db");
+        console.log(result.insertedCount + ' new doc has been inserted into the db');
       });
       
       if (parsedData.items) {
-        console.log(parsedData);
         for (let i = 0; i < parsedData.items.length; i++) {
           let image = {
             url: parsedData.items[i].link,
@@ -51,7 +50,7 @@ MongoClient.connect(process.env.DATABASE_URL, function(err, db) {
         }
         res.send(results);
       } else {
-        res.send("No images to display");
+        res.send('No images to display');
       }
       
     });
@@ -62,16 +61,16 @@ MongoClient.connect(process.env.DATABASE_URL, function(err, db) {
     // Query the imageSearches collection for all documents
     // Leave out _id field in returned docs
     // Present in decending date order
-    db.collection("imageSearches").find({}, {"_id": 0}).sort({"when": -1}).toArray(function (err, docs) {
+    db.collection('imageSearches').find({}, {'_id': 0}).sort({'when': -1}).toArray(function (err, docs) {
       if(err) {
-        console.log("A db query error occured");
-        res.send("A db query error occured");
+        console.log('A db query error occured');
+        res.send('A db query error occured');
       }
       let results;
       if (docs.length > 0) {
         results = docs;
       } else {
-        results = "No recent searches";
+        results = 'No recent searches';
       }
       res.send(results);
     });
@@ -98,4 +97,3 @@ MongoClient.connect(process.env.DATABASE_URL, function(err, db) {
   });
   
 });
-
