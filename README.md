@@ -4,4 +4,4 @@ A microservice which takes your search string, searches the web for images relat
 
 Test it at <a href="https://image-search-microservice.glitch.me/">https://image-search-microservice.glitch.me/</a>
 
-I am available for hire, <a href="mailto:dom@javascriptcodebook.com">contact me</a>.
+<a href="mailto:dom@javascriptcodebook.com">Contact me</a>.
